@@ -1,0 +1,51 @@
+<!doctype html>
+
+<html>
+
+<head>
+  <script src="https://d3js.org/d3.v4.min.js"></script>
+</head>
+
+<body>
+
+  <script>
+
+    // add canvas to body
+    var canvas = d3.select("body").append("svg")
+                  .attr("width", 500)
+                  .attr("height", 500);
+
+    var dataArray = [
+        {x: 10, y: 20},
+        {x: 40, y: 60},
+        {x: 50, y: 70}
+
+    ];
+
+    // group
+    var group = canvas.append("g")
+        .attr("transform", "translate(100,100)");
+
+    var line = d3.line()
+        .x(function (d) { return d.x; })
+        .y(function (d) { return d.y; });
+
+    // add colour scale
+    // var colorScale = d3.scaleLinear()
+    //                   .domain([0, 0.1])
+    //                   .range(["red", "blue"]);
+
+    group.selectAll("path")
+        .data([dataArray])
+        .enter()
+        .append("path")
+        // set line properties
+        .attr("d", line)
+        .attr("fill", "none")
+        .attr("stroke", "#000")
+        .attr("stroke-width", 10)
+        //.attr("fill", function(d) {return colorScale(d)});
+
+  </script>
+
+</body>
