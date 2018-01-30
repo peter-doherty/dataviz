@@ -1,0 +1,61 @@
+<!doctype html>
+
+<html>
+
+<head>
+  <script src="https://d3js.org/d3.v4.min.js"></script>
+</head>
+
+<body>
+
+  <script>
+
+    var data = [60, 50];
+
+    // add canvas to body
+    var canvas = d3.select("body")
+                  .append("svg")
+                  .attr("width", 1500)
+                  .attr("height", 1500);
+
+    // group
+    var group = canvas.append("g")
+        .attr("transform", "translate(300,300)");
+
+    //Colorscale
+    var color = d3.scaleOrdinal()
+        .range(["blue", "steelblue"]);
+
+    //define circle Characteristic
+    var r = 100;
+
+    var arc = d3.arc()
+          .innerRadius(r+100)
+          .outerRadius(r);
+
+    // layout
+    var pie = d3.pie()
+        .value(function (d) { return d; });
+
+    //grouping
+    var arcs = group.selectAll(".arc")
+        .data(pie(data))
+        .enter()
+        .append("g")
+        .attr("class", "arc");
+
+        arcs.append("path")
+            .attr("d", arc)
+            .attr("fill", function (d) {
+              return color (d.data);
+            });
+
+        arcs.append("text")
+            .attr("transform", function (d) {
+              return "translate(" + arc.centroid(d) + ")";
+            })
+            .text(function (d) { return d.data; });
+
+  </script>
+
+</body>
