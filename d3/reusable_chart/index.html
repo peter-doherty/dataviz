@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+.bar {
+  fill: steelblue;
+}
+
+.bar:hover {
+  fill: brown;
+}
+
+.axis--x path {
+  display: none;
+}
+
+</style>
+<div id="chart"></div>
+<div id="chart1"></div>
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script src="barChart.js"></script>
+<script>
+  // 1. call the chart
+  // 2. add data sources as required
+  var myBarChart = barChart();
+
+  // data source
+  d3.tsv("data.tsv",
+  function(d) {
+    d.frequency = +d.frequency;
+    return d;
+  },
+  function (err, data) {
+    if (err) throw err;
+    d3.select("#chart")
+      .datum(data) // datum is used here as there is one element but it could be .data if there are more
+      .call(myBarChart);
+  });
+
+
+
+  // data source
+  d3.tsv("data1.tsv",
+  function(d) {
+    d.frequency = +d.frequency;
+    return d;
+  },
+  function (err, data1) {
+    if (err) throw err;
+    d3.select("#chart1")
+      .datum(data1) // datum is used here as there is one element but it could be .data if there are more
+      .call(myBarChart);
+  });
+</script>
